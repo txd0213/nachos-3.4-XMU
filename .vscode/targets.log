@@ -1,0 +1,359 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+ 
+# GNU Make 4.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2014 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Sat Mar  5 06:47:06 2022
+
+# Variables
+
+# 'override' directive
+GNUMAKEFLAGS := 
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+PAPERSIZE = letter
+# environment
+DESKTOP_SESSION = ubuntu
+# default
+.SHELLFLAGS := -c
+# environment
+SNAP_COMMON = /var/snap/code/common
+# environment
+XDG_SESSION_TYPE = x11
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+IM_CONFIG_PHASE = 2
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /run/user/1000/gdm/Xauthority
+# environment
+GDMSESSION = ubuntu
+# environment
+XMODIFIERS = @im=none
+# makefile
+CURDIR := /home/txd/Downloads/nachos-3.4
+# makefile
+SHELL = /bin/sh
+# environment
+JRE_HOME = /usr/lib/jvm/java-8-openjdk-amd64/jre
+# environment
+SNAP_DATA = /var/snap/code/89
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /snap/code/89/usr/share/code/code
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
+# environment
+SNAP_INSTANCE_NAME = code
+# environment
+SNAP_ARCH = amd64
+# makefile
+MAKEFILE_LIST := 
+# environment
+JAVA_HOME = /usr/lib/jvm/java-8-openjdk-amd64
+# automatic
+@F = $(notdir $@)
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
+# environment
+USERNAME = txd
+# environment
+MAKELEVEL := 0
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+CLUTTER_IM_MODULE = xim
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+LC_NAME = en_US.UTF-8
+# environment
+VSCODE_CWD = /home/txd
+# environment
+GSETTINGS_SCHEMA_DIR = /snap/code/89/usr/share/glib-2.0/schemas
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+PATH = .:/usr/lib/jvm/java-8-openjdk-amd64/bin:.:/usr/lib/jvm/java-8-openjdk-amd64/bin:.:/usr/lib/jvm/java-8-openjdk-amd64/bin:.:/usr/lib/jvm/java-8-openjdk-amd64/bin:.:/usr/lib/jvm/java-8-openjdk-amd64/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+# environment
+GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
+# environment
+SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1538,unix/ubuntu:/tmp/.ICE-unix/1538
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+GDK_PIXBUF_MODULE_FILE = /home/txd/snap/code/common/.cache/gdk-pixbuf-loaders.cache
+# environment
+TEXTDOMAIN = im-config
+# environment
+SNAP = /snap/code/89
+# environment
+SNAP_VERSION = b5205cc8
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+VSCODE_LOG_STACK = false
+# environment
+DISABLE_WAYLAND = 1
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+GDK_PIXBUF_MODULEDIR = /snap/code/89/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = 
+# environment
+XDG_SESSION_DESKTOP = ubuntu
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 6445
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :0
+# environment
+GTK_IM_MODULE = xim
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+SNAP_INSTANCE_KEY = 
+# environment
+PWD = /home/txd/Downloads/nachos-3.4
+# environment
+XDG_SEAT = seat0
+# environment
+SSH_AGENT_PID = 1611
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# environment
+GTK_MODULES = gail:atk-bridge
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/txd
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# environment
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = /home/txd/.config/Code/CachedData/b5205cc8eb4fbaa726835538cd82372cc0222d43
+# environment
+LOGNAME = txd
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
+# environment
+SNAP_CONTEXT = u4W1OVo7J1xxuZXPQaVugLT0P4tu_saBCt_6FCq-maJLWztWThrE
+# automatic
++F = $(notdir $+)
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+SNAP_USER_COMMON = /home/txd/snap/code/common
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+MAKE_VERSION := 4.1
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XDG_VTNR = 2
+# environment
+LC_TIME = en_US.UTF-8
+# environment
+SNAP_REAL_HOME = /home/txd
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+QT_IM_MODULE = ibus
+# environment
+SNAP_USER_DATA = /home/txd/snap/code/89
+# environment
+SHLVL = 1
+# environment
+GNOME_SHELL_SESSION_MODE = ubuntu
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-abcfc11b-7f20-46ff-b492-1f0c46021a1f.sock
+# environment
+XDG_SESSION_ID = 2
+# environment
+USER = txd
+# environment
+SNAP_REVISION = 89
+# environment
+LC_MONETARY = en_US.UTF-8
+# makefile
+.DEFAULT_GOAL := 
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# environment
+CLASSPATH = .:/usr/lib/jvm/java-8-openjdk-amd64/lib:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LC_TELEPHONE = en_US.UTF-8
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+LANGUAGE = en_US:en
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-6d480f54-1.65.0-main.sock
+# environment
+BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+GDK_BACKEND = x11
+# environment
+LC_PAPER = en_US.UTF-8
+# environment
+LC_IDENTIFICATION = en_US.UTF-8
+# environment
+QT_ACCESSIBILITY = 1
+# environment
+TEXTDOMAINDIR = /usr/share/locale/
+# default
+MAKEFILES := 
+# environment
+SNAP_COOKIE = u4W1OVo7J1xxuZXPQaVugLT0P4tu_saBCt_6FCq-maJLWztWThrE
+# environment
+LC_NUMERIC = en_US.UTF-8
+# automatic
+<F = $(notdir $<)
+# environment
+LC_MEASUREMENT = en_US.UTF-8
+# environment
+SNAP_NAME = code
+# environment
+LC_ALL = C
+# environment
+QT4_IM_MODULE = xim
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# environment
+SNAP_REEXEC = 
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+WINDOWPATH = 2
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# default
+ 
+.RECIPEPREFIX := 
+# environment
+LC_ADDRESS = en_US.UTF-8
+# environment
+LANG = C
+# environment
+VSCODE_PID = 6484
+# variable set hash-table stats:
+# Load=137/1024=13%, Rehash=0, Collisions=25/159=16%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 2049, inode 396519): 9 files, no impossibilities.
+
+# 9 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# files hash-table stats:
+# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 17 / storage = 146 B / avg = 8 B
+# current buf: size = 8162 B / used = 146 B / count = 17 / avg = 8 B
+
+# strcache performance: lookups = 20 / hit rate = 15%
+# hash-table stats:
+# Load=17/8192=0%, Rehash=0, Collisions=1/20=5%
+# Finished Make data base on Sat Mar  5 06:47:06 2022
+
+ 
