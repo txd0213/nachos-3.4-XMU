@@ -11,9 +11,12 @@
 
 #include "copyright.h"
 #include "system.h"
+#include "dllist.h"
+//#include "dllist-driver.cc"
 
 // testnum is set in main.cc
 int testnum = 1;
+int N = 5;
 
 //----------------------------------------------------------------------
 // SimpleThread
@@ -23,6 +26,9 @@ int testnum = 1;
 //	"which" is simply a number identifying the thread, for debugging
 //	purposes.
 //----------------------------------------------------------------------
+
+extern void GenerateN(DLList *dllist, int N);
+extern void RemoveN(DLList *dllist, int N);
 
 void
 SimpleThread(int which)
@@ -52,6 +58,16 @@ ThreadTest1()
     SimpleThread(0);
 }
 
+void 
+ThreadTest2()
+{
+    DEBUG('t', "Entering ThreadTest2");
+
+    DLList *dllist=new DLList();
+    GenerateN(dllist,N);
+    RemoveN(dllist,N);
+}
+
 //----------------------------------------------------------------------
 // ThreadTest
 // 	Invoke a test routine.
@@ -64,6 +80,9 @@ ThreadTest()
     case 1:
 	ThreadTest1();
 	break;
+    case 2:
+    ThreadTest2();
+    break;
     default:
 	printf("No test specified.\n");
 	break;

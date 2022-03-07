@@ -48,6 +48,7 @@ extern void CallOnUserAbort(VoidNoArgFunctionPtr cleanUp);
 
 // Initialize the pseudo random number generator
 extern void RandomInit(unsigned seed);
+extern void RandomInit();
 extern int Random();
 
 // Allocate, de-allocate an array, such that de-referencing

@@ -55,6 +55,7 @@
 
 #ifdef THREADS
 extern int testnum;
+extern int N;
 #endif
 
 // External functions used by this file
@@ -93,7 +94,8 @@ main(int argc, char **argv)
       switch (argv[0][1]) {
       case 'q':
         testnum = atoi(argv[1]);
-        argCount++;
+		N = atoi(argv[2]);
+        argCount+=2;
         break;
       default:
         testnum = 1;
@@ -107,7 +109,7 @@ main(int argc, char **argv)
     for (argc--, argv++; argc > 0; argc -= argCount, argv += argCount) {
 	argCount = 1;
         if (!strcmp(*argv, "-z"))               // print copyright
-            printf (copyright);
+            printf ("%s",copyright);
 #ifdef USER_PROGRAM
         if (!strcmp(*argv, "-x")) {        	// run a user program
 	    ASSERT(argc > 1);

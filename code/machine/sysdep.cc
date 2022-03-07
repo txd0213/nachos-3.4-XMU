@@ -35,6 +35,7 @@ extern "C" {
 #include <sys/file.h>
 #include <sys/un.h>
 #include <sys/mman.h>
+#include <ctime>
 #ifdef HOST_i386
 #include <unistd.h>
 #include <sys/time.h>
@@ -450,6 +451,11 @@ RandomInit(unsigned seed)
     srand(seed);
 }
 
+void
+RandomInit()
+{
+    srand((unsigned)time(NULL));
+}
 //----------------------------------------------------------------------
 // Random
 // 	Return a pseudo-random number.
