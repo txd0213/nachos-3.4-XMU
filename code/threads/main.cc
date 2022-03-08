@@ -56,6 +56,7 @@
 #ifdef THREADS
 extern int testnum;
 extern int N;
+extern int threadnum;
 #endif
 
 // External functions used by this file
@@ -95,7 +96,8 @@ main(int argc, char **argv)
       case 'q':
         testnum = atoi(argv[1]);
 		N = atoi(argv[2]);
-        argCount+=2;
+		threadnum = atoi(argv[3]);
+        argCount+=3;
         break;
       default:
         testnum = 1;
