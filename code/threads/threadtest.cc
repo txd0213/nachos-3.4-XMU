@@ -18,6 +18,9 @@
 int testnum = 1;
 int N = 5;
 
+int threadnum = 1;//num of thread, default for 1
+DLList *dllist;
+
 //----------------------------------------------------------------------
 // SimpleThread
 // 	Loop 5 times, yielding the CPU to another ready thread 
@@ -58,14 +61,23 @@ ThreadTest1()
     SimpleThread(0);
 }
 
+void
+GenerateAndRemove(int which){
+    GenerateN(dllist,N);
+    RemoveN(dllist,N);
+}
 void 
 ThreadTest2()
 {
     DEBUG('t', "Entering ThreadTest2");
 
-    DLList *dllist=new DLList();
-    GenerateN(dllist,N);
-    RemoveN(dllist,N);
+    dllist=new DLList();
+    for(int i = 1; i < threadnum; i++){
+        Thread *t = new Thread("forked thread");
+        t->Fork(GenerateAndRemove,i);
+    }
+    GenerateAndRemove(0);
+
 }
 
 //----------------------------------------------------------------------
