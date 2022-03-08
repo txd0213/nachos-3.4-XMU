@@ -9,9 +9,11 @@ class DLLElement
 {
 public:
     DLLElement(void *itemPtr, int sortKey)
-    { // initialize a list element
+    {   // initialize a list element
         this->item = itemPtr;
         this->key = sortKey;
+        this->next = NULL;
+        this->prev = NULL;
     }
     DLLElement *next; // next element on list
     // NULL if this is the last
