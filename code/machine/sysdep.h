@@ -47,6 +47,7 @@ extern void Delay(int seconds);
 extern void CallOnUserAbort(VoidNoArgFunctionPtr cleanUp);
 
 // Initialize the pseudo random number generator
+// If none paras, assume it as Time of Machine
 extern void RandomInit(unsigned seed);
 extern void RandomInit();
 extern int Random();

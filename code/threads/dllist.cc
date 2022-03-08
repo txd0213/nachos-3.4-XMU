@@ -88,7 +88,7 @@ void DLList::SortedInsert(void *item, int sortKey)
     DLLElement *ptr; // keep track
 
     if (IsEmpty())
-    { // if list is empty, put
+    {   // if list is empty
         first = element;
         last = element;
     }
@@ -110,7 +110,7 @@ void DLList::SortedInsert(void *item, int sortKey)
                 element->next = ptr->next;
                 element->prev = ptr;
                 ptr->next = element;
-                ptr->next->prev = element;
+                element->next->prev = element;
                 return;
             }
         }
