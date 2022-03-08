@@ -36,8 +36,8 @@ SimpleThread(int which)
     int num;
     
     for (num = 0; num < 5; num++) {
-	printf("*** thread %d looped %d times\n", which, num);
-        currentThread->Yield();
+	    printf("*** thread %d looped %d times. Now testnum=%d\n", which, num,testnum++);
+        //currentThread->Yield();
     }
 }
 

@@ -131,7 +131,18 @@ void *DLList::SortedRemove(int sortKey)
     if (IsEmpty())
         return NULL;
 
-    for (ptr = first; ptr->next != NULL; ptr = ptr->next)
+    // go at the begin of dllist
+    ptr = first;
+    if (ptr->key == sortKey)
+    {
+        thing = ptr->item;
+        first = ptr->next;
+        ptr->next->prev = NULL;
+        delete ptr;
+        return thing;
+    }
+
+    for (ptr = first->next; ptr->next != NULL; ptr = ptr->next)
     {
         if (sortKey == ptr->key)
         {
@@ -142,5 +153,16 @@ void *DLList::SortedRemove(int sortKey)
             return thing;
         }
     }
+
+    // go at the end of dllist
+    if (ptr->key == sortKey)
+    {
+        thing = ptr->item;
+        last = ptr->prev;
+        ptr->prev->next = NULL;
+        delete ptr;
+        return thing;
+    }
+
     return NULL;
 }
