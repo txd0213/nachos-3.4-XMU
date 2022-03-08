@@ -72,14 +72,12 @@ ThreadTest2()
     DEBUG('t', "Entering ThreadTest2");
 
     dllist=new DLList();
-    // for(int i = 1; i < threadnum; i++){
-    //     Thread *t = new Thread("forked thread");
-    //     t->Fork(GenerateAndRemove,i);
-    // }
-    // GenerateAndRemove(0);
-
+    for(int i = 1; i < threadnum; i++){
+        Thread *t = new Thread("forked thread");
+        t->Fork(GenerateAndRemove,i);
+    }
     GenerateAndRemove(0);
-    GenerateAndRemove(1);
+
 }
 
 //----------------------------------------------------------------------
