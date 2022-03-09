@@ -22,6 +22,7 @@ public:
     int key;    // priority, for a sorted list
     void *item; // pointer to item on the list
 };
+
 class DLList
 {
 public:
