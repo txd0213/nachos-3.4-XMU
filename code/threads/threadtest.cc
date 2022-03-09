@@ -12,8 +12,6 @@
 #include "copyright.h"
 #include "system.h"
 #include "dllist.h"
-#include "string"
-using namespace std ;
 //#include "dllist-driver.cc"
 
 // testnum is set in main.cc
@@ -57,15 +55,19 @@ ThreadTest1()
 {
     DEBUG('t', "Entering ThreadTest1");
 
-    while(threadnum--){
-        Thread *t = new Thread("forked thread");
-        t->Fork(SimpleThread, threadnum);
+    for(int i = 1; i < threadnum; i++){
+	    printf("fork%d\n",i);
+	    char fork_name[15]="forked thread";
+	    fork_name[13]=i+'0';
+        Thread *t = new Thread(fork_name);//Thread接受的是char *,谁告诉我是string，zyf你坏事做尽 φ(*￣0￣)
+        t->Fork(SimpleThread,i);
     }
     SimpleThread(0);
 }
 
 void
 GenerateAndRemove(int which){
+	printf("thread %d running\n",which);
     GenerateN(dllist,N);
     RemoveN(dllist,N);
 }
@@ -76,7 +78,10 @@ ThreadTest2()
 
     dllist=new DLList();
     for(int i = 1; i < threadnum; i++){
-        Thread *t = new Thread("forked thread");
+	    printf("fork%d\n",i);
+	    char fork_name[15]="forked thread";
+	    fork_name[13]=i+'0';
+        Thread *t = new Thread(fork_name);//Thread接受的是char *,谁告诉我是string，zyf你坏事做尽 φ(*￣0￣)
         t->Fork(GenerateAndRemove,i);
     }
     GenerateAndRemove(0);
