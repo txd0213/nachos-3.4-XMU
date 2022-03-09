@@ -12,13 +12,15 @@
 #include "copyright.h"
 #include "system.h"
 #include "dllist.h"
+#include "string"
+using namespace std ;
 //#include "dllist-driver.cc"
 
 // testnum is set in main.cc
-int testnum = 1;
-int N = 5;
-
-int threadnum = 1;//num of thread, default for 1
+int testnum = 1;//-qq 程序模式,1为原程序，2为自制程序
+int N = 5;//-nn 增加链表节点数
+int threadnum=2;//-tt 线程数
+int error_num=1;//-ff bug类型
 DLList *dllist;
 
 //----------------------------------------------------------------------
@@ -55,9 +57,10 @@ ThreadTest1()
 {
     DEBUG('t', "Entering ThreadTest1");
 
-    Thread *t = new Thread("forked thread");
-
-    t->Fork(SimpleThread, 1);
+    while(threadnum--){
+        Thread *t = new Thread("forked thread");
+        t->Fork(SimpleThread, threadnum);
+    }
     SimpleThread(0);
 }
 
