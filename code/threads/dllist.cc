@@ -131,7 +131,7 @@ void *DLList::SortedRemove(int sortKey)
     if (IsEmpty())
         return NULL;
 
-    // go at the begin of dllist
+    // goes at the begin of dllist
     ptr = first;
     if (ptr->key == sortKey)
     {
@@ -154,7 +154,7 @@ void *DLList::SortedRemove(int sortKey)
         }
     }
 
-    // go at the end of dllist
+    // goes at the end of dllist
     if (ptr->key == sortKey)
     {
         thing = ptr->item;
