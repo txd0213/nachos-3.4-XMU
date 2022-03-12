@@ -6,13 +6,15 @@
 #include "system.h"
 #include "utility.h"
 #include "dllist.h"
+#include "system.h"
+
 
 extern int error_type;
 
 void GenerateN(DLList *dllist, int N)
 {
     while(N--)
-    {
+    {        
         int keyValue=Random()%100;
         int *item=new int;
         *item=keyValue-1;

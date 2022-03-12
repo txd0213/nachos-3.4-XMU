@@ -41,8 +41,10 @@ SimpleThread(int which)
     int num;
     
     for (num = 0; num < 5; num++) {
-	    printf("*** thread %d looped %d times. Now testnum=%d\n", which, num,testnum++);
-        //currentThread->Yield();
+	    // printf("*** thread %d looped %d times. Now testnum=%d\n", which, num,testnum++);
+        // currentThread->Print();
+	    printf("\n*** thread %d looped %d times.\n", which, num);
+        currentThread->Yield();
     }
 }
 
@@ -57,9 +59,15 @@ ThreadTest1()
 {
     DEBUG('t', "Entering ThreadTest1");
 
-    while(threadnum--){
-        Thread *t = new Thread("forked thread");
-        t->Fork(SimpleThread, threadnum);
+    // while(threadnum--){
+    //     Thread *t = new Thread("forked thread");
+    //     t->Fork(SimpleThread, threadnum);
+    // }
+    char tname[20];
+    for(int i = 1 ; i < threadnum; i++){
+        sprintf(tname, "%d", i);
+        Thread *t = new Thread(tname);
+        t->Fork(SimpleThread, i);
     }
     SimpleThread(0);
 }
