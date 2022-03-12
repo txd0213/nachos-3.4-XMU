@@ -100,19 +100,25 @@ main(int argc, char **argv)
 		优点：参数可乱序
 		优点：参数可缺失
 	*/
-	for(int read_point=1; read_point<argc;read_point+=2){
+	for(int read_point = 1; read_point < argc; read_point++){
 		switch(argv[read_point][2]){
 			case 'q':
         		testnum = atoi(argv[read_point+1]);
+				read_point++;
         		break;
 			case 'n':
 				N=atoi(argv[read_point+1]);
+				read_point++;
 				break;
 			case 't':
 				threadnum=atoi(argv[read_point+1]);
+				read_point++;
 				break;
 			case 'f':
 				error_type=atoi(argv[read_point+1]);
+				read_point++;
+				break;
+			case 'S':
 				break;
       		default:
 			  	printf("Please check the input parameters! In main.cc line:118\n");
