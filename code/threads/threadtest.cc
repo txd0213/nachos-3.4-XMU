@@ -19,8 +19,8 @@ using namespace std ;
 // testnum is set in main.cc
 int testnum = 1;//-qq 程序模式,1为原程序，2为自制程序
 int N = 5;//-nn 增加链表节点数
-int threadnum=2;//-tt 线程数
-int error_type=0;//-ff bug类型
+int threadnum = 2;//-tt 线程数
+int error_type = 0;//-ff bug类型
 DLList *dllist;
 
 //----------------------------------------------------------------------
@@ -41,8 +41,10 @@ SimpleThread(int which)
     int num;
     
     for (num = 0; num < 5; num++) {
-	    printf("*** thread %d looped %d times. Now testnum=%d\n", which, num,testnum++);
-        //currentThread->Yield();
+	    // printf("*** thread %d looped %d times. Now testnum=%d\n", which, num,testnum++);
+        // currentThread->Print();
+	    printf("\n*** thread %d looped %d times.\n", which, num);
+        currentThread->Yield();
     }
 }
 
@@ -57,9 +59,15 @@ ThreadTest1()
 {
     DEBUG('t', "Entering ThreadTest1");
 
-    while(threadnum--){
-        Thread *t = new Thread("forked thread");
-        t->Fork(SimpleThread, threadnum);
+    // while(threadnum--){
+    //     Thread *t = new Thread("forked thread");
+    //     t->Fork(SimpleThread, threadnum);
+    // }
+    char tname[20];
+    for(int i = 1 ; i < threadnum; i++){
+        sprintf(tname, "%d", i);
+        Thread *t = new Thread(tname);
+        t->Fork(SimpleThread, i);
     }
     SimpleThread(0);
 }
