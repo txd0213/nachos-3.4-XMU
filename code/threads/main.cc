@@ -57,7 +57,7 @@
 extern int testnum;
 extern int N;
 extern int threadnum;
-extern int error_num;
+extern int error_type;
 #endif
 
 // External functions used by this file
@@ -96,7 +96,7 @@ main(int argc, char **argv)
 	重复一遍是为了防止与系统原有的指令重复
 	1. testnum==1: ./nachos或 ./nachos -qq 1
 	2. testnum==2:
-		默认 N=5,threadnum=2,error_num=1 在threadtest.cc文件头部声明全局变量时设定
+		默认 N=5,threadnum=2,error_type=0 在threadtest.cc文件头部声明全局变量时设定
 		优点：参数可乱序
 		优点：参数可缺失
 	*/
@@ -112,15 +112,15 @@ main(int argc, char **argv)
 				threadnum=atoi(argv[read_point+1]);
 				break;
 			case 'f':
-				error_num=atoi(argv[read_point+1]);
+				error_type=atoi(argv[read_point+1]);
 				break;
       		default:
-			  	printf("Please check the input parameters! In main.cc line:127\n");
+			  	printf("Please check the input parameters! In main.cc line:118\n");
         		break;
 		}
 	}
 
-	printf("-qq%d -nn%d -tt%d -ff%d\n",testnum,N,threadnum,error_num);
+	printf("-qq%d -nn%d -tt%d -ff%d\n",testnum,N,threadnum,error_type);
 
     ThreadTest();
 #endif
