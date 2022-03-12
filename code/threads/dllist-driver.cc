@@ -20,16 +20,6 @@ void GenerateN(DLList *dllist, int N)
         printf("[thread]:");
         currentThread->Print();
         printf("%d:%d has been inserted into the DLList\n",*item,keyValue);
-
-        //bug 2
-        if(error_type==2)
-        {
-            printf("---[bug 2]--- Thread: ");
-            currentThread->Print();
-            printf("    yield after insert one node (dllist-driver.cc line27)\n\n");
-            fflush(stdout);
-            currentThread->Yield();
-        }
     }
 }
 
