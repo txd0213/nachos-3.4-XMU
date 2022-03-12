@@ -20,7 +20,7 @@ using namespace std ;
 int testnum = 1;//-qq 程序模式,1为原程序，2为自制程序
 int N = 5;//-nn 增加链表节点数
 int threadnum = 2;//-tt 线程数
-int error_num = 0;//-ff bug类型
+int error_type = 0;//-ff bug类型
 DLList *dllist;
 
 //----------------------------------------------------------------------
@@ -67,16 +67,30 @@ ThreadTest1()
 void
 GenerateAndRemove(int which){
     GenerateN(dllist,N);
+    // Bug 1
+    if(error_type==1)
+    {
+        
+        printf("---[bug 1]--- Thread: ");
+        currentThread->Print();
+        printf("    Yield after insert N node. (dllist.cc line76)\n\n");
+        fflush(stdout);
+        currentThread->Yield();
+    }
     RemoveN(dllist,N);
 }
 void 
 ThreadTest2()
 {
     DEBUG('t', "Entering ThreadTest2");
+    printf("thread: main start-up\n");
 
     dllist=new DLList();
     for(int i = 1; i < threadnum; i++){
-        Thread *t = new Thread("forked thread");
+        printf("thread: %d start-up\n",i);
+	    char fork_name[5]="1   ";
+	    fork_name[0]=i+'0';
+        Thread *t = new Thread(fork_name);
         t->Fork(GenerateAndRemove,i);
     }
     GenerateAndRemove(0);
