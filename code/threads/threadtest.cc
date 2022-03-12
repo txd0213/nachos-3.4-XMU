@@ -19,8 +19,8 @@ using namespace std ;
 // testnum is set in main.cc
 int testnum = 1;//-qq 程序模式,1为原程序，2为自制程序
 int N = 5;//-nn 增加链表节点数
-int threadnum=2;//-tt 线程数
-int error_num=1;//-ff bug类型
+int threadnum = 2;//-tt 线程数
+int error_num = 0;//-ff bug类型
 DLList *dllist;
 
 //----------------------------------------------------------------------
