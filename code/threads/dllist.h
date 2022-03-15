@@ -38,6 +38,8 @@ public:
     void SortedInsert(void *item, int sortKey);
     void *SortedRemove(int sortKey); // remove first item with key==sortKey
     // return NULL if no such item exists
+    void Show1();//first->last
+    void Show2();//last->first
 private:
     DLLElement *first; // head of the list, NULL if empty
     DLLElement *last;  // last element of the list, NULL if empty

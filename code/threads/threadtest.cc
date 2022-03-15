@@ -95,7 +95,7 @@ ThreadTest2()
 
     dllist=new DLList();
     for(int i = 1; i < threadnum; i++){
-        printf("thread: %d start-up\n",i);
+        printf("thread: %d    start-up\n",i);
 	    char fork_name[5]="1   ";
 	    fork_name[0]=i+'0';
         Thread *t = new Thread(fork_name);
