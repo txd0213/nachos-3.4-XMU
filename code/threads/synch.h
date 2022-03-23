@@ -20,6 +20,7 @@
 #include "copyright.h"
 #include "thread.h"
 #include "list.h"
+//#include "stdlib.h"
 
 // The following class defines a "semaphore" whose value is a non-negative
 // integer.  The semaphore has only two operations P() and V():
@@ -35,6 +36,8 @@
 // into a register, a context switch might have occurred,
 // and some other thread might have called P or V, so the true value might
 // now be different.
+
+enum LockStatus{FREE,BUSY};
 
 class Semaphore {
   public:
@@ -79,6 +82,9 @@ class Lock {
 
   private:
     char* name;				// for debugging
+    char* holderName;
+    LockStatus flag;
+    List *queue;
     // plus some other stuff you'll need to define
 };
 
@@ -131,6 +137,7 @@ class Condition {
 
   private:
     char* name;
+    List *queue;
     // plus some other stuff you'll need to define
 };
 #endif // SYNCH_H

@@ -1,6 +1,6 @@
-// synch.cc 
+// synch.cc
 //	Routines for synchronizing threads.  Three kinds of
-//	synchronization routines are defined here: semaphores, locks 
+//	synchronization routines are defined here: semaphores, locks
 //   	and condition variables (the implementation of the last two
 //	are left to the reader).
 //
@@ -18,7 +18,7 @@
 // that be disabled or enabled).
 //
 // Copyright (c) 1992-1993 The Regents of the University of California.
-// All rights reserved.  See copyright.h for copyright notice and limitation 
+// All rights reserved.  See copyright.h for copyright notice and limitation
 // of liability and disclaimer of warranty provisions.
 
 #include "copyright.h"
@@ -33,7 +33,7 @@
 //	"initialValue" is the initial value of the semaphore.
 //----------------------------------------------------------------------
 
-Semaphore::Semaphore(char* debugName, int initialValue)
+Semaphore::Semaphore(char *debugName, int initialValue)
 {
     name = debugName;
     value = initialValue;
@@ -61,19 +61,19 @@ Semaphore::~Semaphore()
 //	when it is called.
 //----------------------------------------------------------------------
 
-void
-Semaphore::P()
+void Semaphore::P()
 {
-    IntStatus oldLevel = interrupt->SetLevel(IntOff);	// disable interrupts
-    
-    while (value == 0) { 			// semaphore not available
-	queue->Append((void *)currentThread);	// so go to sleep
-	currentThread->Sleep();
-    } 
-    value--; 					// semaphore available, 
-						// consume its value
-    
-    (void) interrupt->SetLevel(oldLevel);	// re-enable interrupts
+    IntStatus oldLevel = interrupt->SetLevel(IntOff); // disable interrupts
+
+    while (value == 0)
+    {                                         // semaphore not available
+        queue->Append((void *)currentThread); // so go to sleep
+        currentThread->Sleep();
+    }
+    value--; // semaphore available,
+             // consume its value
+
+    (void)interrupt->SetLevel(oldLevel); // re-enable interrupts
 }
 
 //----------------------------------------------------------------------
@@ -84,29 +84,125 @@ Semaphore::P()
 //	are disabled when it is called.
 //----------------------------------------------------------------------
 
-void
-Semaphore::V()
+void Semaphore::V()
 {
     Thread *thread;
     IntStatus oldLevel = interrupt->SetLevel(IntOff);
 
     thread = (Thread *)queue->Remove();
-    if (thread != NULL)	   // make thread ready, consuming the V immediately
-	scheduler->ReadyToRun(thread);
+    if (thread != NULL) // make thread ready, consuming the V immediately
+        scheduler->ReadyToRun(thread);
     value++;
-    (void) interrupt->SetLevel(oldLevel);
+    (void)interrupt->SetLevel(oldLevel);
 }
 
-// Dummy functions -- so we can compile our later assignments 
-// Note -- without a correct implementation of Condition::Wait(), 
+// Dummy functions -- so we can compile our later assignments
+// Note -- without a correct implementation of Condition::Wait(),
 // the test case in the network assignment won't work!
-Lock::Lock(char* debugName) {}
-Lock::~Lock() {}
-void Lock::Acquire() {}
-void Lock::Release() {}
+Lock::Lock(char *debugName)
+{
 
-Condition::Condition(char* debugName) { }
-Condition::~Condition() { }
-void Condition::Wait(Lock* conditionLock) { ASSERT(FALSE); }
-void Condition::Signal(Lock* conditionLock) { }
-void Condition::Broadcast(Lock* conditionLock) { }
+    name = new char[64];
+    strcpy(name, debugName);
+    queue = new List;
+}
+
+Lock::~Lock()
+{
+
+    delete name;
+    delete queue;
+}
+
+void Lock::Acquire()
+{
+    ASSERT(!isHeldByCurrentThread());
+    IntStatus oldLevel = interrupt->SetLevel(IntOff);
+
+    if (flag == BUSY)
+    {
+        queue->Append((void *)currentThread);
+        currentThread->Sleep();
+    }
+
+    ASSERT(flag == FREE);
+    flag = BUSY;
+    holderName = currentThread->getName();
+
+    (void)interrupt->SetLevel(oldLevel);
+}
+
+void Lock::Release()
+{
+    ASSERT(isHeldByCurrentThread());
+    Thread *thread;
+    IntStatus oldLevel = interrupt->SetLevel(IntOff);
+
+    thread = (Thread *)queue->Remove();
+    if (thread != NULL)
+        scheduler->ReadyToRun(thread);
+    // flag=BUSY;
+    else
+    {
+        flag = FREE;
+        holderName = NULL;
+    }
+
+    (void)interrupt->SetLevel(oldLevel);
+}
+
+bool Lock::isHeldByCurrentThread()
+{
+    return !strcmp(holderName, currentThread->getName());
+}
+
+Condition::Condition(char *debugName)
+{
+    name = new char[64];
+    strcpy(name, debugName);
+    queue = new List;
+}
+
+Condition::~Condition()
+{
+    delete name;
+    delete queue;
+}
+
+void Condition::Wait(Lock *conditionLock)
+{
+    // ASSERT(FALSE);
+
+    IntStatus oldLevel = interrupt->SetLevel(IntOff);
+
+    conditionLock->Release();
+    queue->Append((void *)currentThread);
+    currentThread->Sleep();
+
+    conditionLock->Acquire();
+
+    (void)interrupt->SetLevel(oldLevel);
+}
+
+void Condition::Signal(Lock *conditionLock)
+{
+    Thread *thread;
+    IntStatus oldLevel = interrupt->SetLevel(IntOff);
+
+    thread = (Thread *)queue->Remove();
+    if (thread != NULL)
+        scheduler->ReadyToRun(thread);
+
+    (void)interrupt->SetLevel(oldLevel);
+}
+
+void Condition::Broadcast(Lock *conditionLock)
+{
+    Thread *thread;
+    IntStatus oldLevel = interrupt->SetLevel(IntOff);
+
+    while ((thread = (Thread *)queue->Remove()) != NULL)
+        scheduler->ReadyToRun(thread);
+
+    (void)interrupt->SetLevel(oldLevel);
+}
