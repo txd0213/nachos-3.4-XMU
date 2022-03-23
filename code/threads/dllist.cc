@@ -1,6 +1,9 @@
 // dllist.cc
 #include "copyright.h"
 #include "dllist.h"
+#include "system.h"
+
+extern int error_type;
 
 DLList::DLList()
 {
@@ -68,6 +71,15 @@ void *DLList::Remove(int *keyPtr)
     }
     else
     {
+        //bug 2
+        if(error_type==2)
+        {
+            printf("[bug 2] Thread: ");
+            currentThread->Print();
+            printf("    Yield before remove first node (dllist.cc line78)\n\n");
+            fflush(stdout);
+            currentThread->Yield();
+        }
         first = element->next;
         first->prev = NULL;
     }
@@ -87,9 +99,28 @@ void DLList::SortedInsert(void *item, int sortKey)
     DLLElement *element = new DLLElement(item, sortKey);
     DLLElement *ptr; // keep track
 
+    //bug 3
+    if(error_type==3)
+        {
+            printf("---[bug 3]--- Thread: ");
+            currentThread->Print();
+            printf("    Yield after 'new' a node space (dllist.cc line107)\n\n");
+            fflush(stdout);
+            currentThread->Yield();
+        }
     if (IsEmpty())
     {   // if list is empty
         first = element;
+
+        //bug 4
+        if(error_type==4)
+        {
+            printf("---[bug 4]--- Thread: ");
+            currentThread->Print();
+            printf("    Yield when list is empty (dllist.cc line120)\n\n");
+            fflush(stdout);
+            currentThread->Yield();
+        }
         last = element;
     }
     else if (sortKey < first->key)
@@ -98,6 +129,15 @@ void DLList::SortedInsert(void *item, int sortKey)
         element->next = first;
         element->prev = NULL;
 
+        //bug 5
+        if(error_type==5)
+        {
+            printf("---[bug 5]--- Thread: ");
+            currentThread->Print();
+            printf("    Yield when insert first node (dllist.cc line137)\n\n");
+            fflush(stdout);
+            currentThread->Yield();
+        }
         first->prev = element;
         first = element;
     }
@@ -110,6 +150,16 @@ void DLList::SortedInsert(void *item, int sortKey)
                 element->next = ptr->next;
                 element->prev = ptr;
                 ptr->next = element;
+
+                //bug 6
+                if(error_type==6)
+                {
+                    printf("---[bug 6]--- Thread: ");
+                    currentThread->Print();
+                    printf("    Yield when insert common node (dllist.cc line159)\n\n");
+                    fflush(stdout);
+                    currentThread->Yield();
+                }
                 element->next->prev = element;
                 return;
             }
