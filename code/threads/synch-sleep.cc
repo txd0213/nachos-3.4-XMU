@@ -114,30 +114,34 @@ Lock::~Lock()
 }
 void Lock::Acquire()
 {
-    IntStatus oldLevel = interrupt->SetLevel(IntOff);	// disable interrupts
-    while(lockValue == 1){//locked
+    IntStatus oldLevel = interrupt->SetLevel(IntOff);
+    while(lockValue == 1){//if locked
         queue->Append((void *)currentThread);
         currentThread->Sleep();
     }
+    // why use while
+    // when waked up, if a new thread acquire the lock,
+    // you have check the lockValue and continue go to sleep
     lockValue = 1;
     threadGetLock = currentThread;
-    (void) interrupt->SetLevel(oldLevel);	// re-enable interrupts
+    (void) interrupt->SetLevel(oldLevel);
 }
 
 void Lock::Release()
 {
     ASSERT(isHeldByCurrentThread());
 
-    Thread *thread;
-    IntStatus oldLevel = interrupt->SetLevel(IntOff);	// disable interrupts
+    IntStatus oldLevel = interrupt->SetLevel(IntOff);
 
-    threadGetLock = NULL;
-    lockValue = 0;
+    Thread *thread;
     thread = (Thread *)queue->Remove();
     if(thread != NULL){
         scheduler->ReadyToRun(thread);
     }
-    (void) interrupt->SetLevel(oldLevel);	// re-enable interrupts
+    threadGetLock = NULL;
+    lockValue = 0;
+    
+    (void) interrupt->SetLevel(oldLevel);
 }
 
 bool Lock::isHeldByCurrentThread()
@@ -160,7 +164,8 @@ Condition::~Condition()
 }
 
 // how to use wait
-//// first: lock->acquire
+//// first: lock->Acquire
+//// ......
 //// then: wait()
 void Condition::Wait(Lock* conditionLock)
 {
@@ -184,7 +189,8 @@ void Condition::Wait(Lock* conditionLock)
 }
 
 // how to use signal
-//// first: lock->acquire
+//// first: lock->Acquire
+//// ......
 //// then: signal()
 void Condition::Signal(Lock* conditionLock)
 {
@@ -201,6 +207,10 @@ void Condition::Signal(Lock* conditionLock)
     (void) interrupt->SetLevel(oldLevel);
 }
 
+// how to use broadcast
+//// first: lock->Acquire
+//// ......
+//// then: broadcast()
 void Condition::Broadcast(Lock* conditionLock)
 {
     ASSERT(conditionLock->isHeldByCurrentThread());
