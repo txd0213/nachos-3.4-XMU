@@ -4,7 +4,7 @@
 
 #include "copyright.h"
 #include "utility.h"
-#include "synch-sleep.h"
+#include "synch-sem.h"
 
 class DLLElement
 {
