@@ -8,12 +8,16 @@ extern int error_type;
 DLList::DLList()
 {
     first = last = NULL;
+    lock = new Lock("dllist lock");
+    dllistEmpty = new Condition("dllist empty condition");
 }
 
 DLList::~DLList()
 {
     while (Remove(NULL) != NULL)
         ;
+    delete lock;
+    delete dllistEmpty;
 }
 
 void DLList::Prepend(void *item)
@@ -57,11 +61,18 @@ void DLList::Append(void *item)
 
 void *DLList::Remove(int *keyPtr)
 {
+    lock->Acquire();
+    while(IsEmpty()){
+        dllistEmpty->Wait(lock);
+    }
+    ASSERT(!IsEmpty());
+
+
     DLLElement *element = first;
     void *thing;
 
-    if (IsEmpty())
-        return NULL;
+    // if (IsEmpty())
+    //     return NULL;
 
     thing = first->item;
     if (first == last)
@@ -86,6 +97,10 @@ void *DLList::Remove(int *keyPtr)
     if (keyPtr != NULL)
         *keyPtr = element->key;
     delete element;
+
+
+    ASSERT(thing != NULL);
+    lock->Release();
     return thing;
 }
 
@@ -96,6 +111,8 @@ bool DLList::IsEmpty()
 
 void DLList::SortedInsert(void *item, int sortKey)
 {
+    lock->Acquire();
+
     DLLElement *element = new DLLElement(item, sortKey);
     DLLElement *ptr; // keep track
 
@@ -161,25 +178,40 @@ void DLList::SortedInsert(void *item, int sortKey)
                     currentThread->Yield();
                 }
                 element->next->prev = element;
-                return;
+                // return;
+                break;
             }
         }
         // item goes at end of list
-        element->prev = last;
-        element->next = NULL;
+        if(ptr == last){
+            element->prev = last;
+            element->next = NULL;
 
-        last->next = element;
-        last = element;
+            last->next = element;
+            last = element;
+        }
     }
+
+
+    dllistEmpty->Signal(lock);
+    lock->Release();
 }
 
+//lock used in SortedRemove can be ignored
 void *DLList::SortedRemove(int sortKey)
 {
+    lock->Acquire();
+    while(IsEmpty()){
+        dllistEmpty->Wait(lock);
+    }
+    ASSERT(!IsEmpty());
+    
+    //--------------in lock--------------
     void *thing;
     DLLElement *ptr; // keep track
 
-    if (IsEmpty())
-        return NULL;
+    // if (IsEmpty())
+    //     return NULL;
 
     // goes at the begin of dllist
     ptr = first;
@@ -188,8 +220,8 @@ void *DLList::SortedRemove(int sortKey)
         thing = ptr->item;
         first = ptr->next;
         ptr->next->prev = NULL;
-        delete ptr;
-        return thing;
+        // delete ptr;
+        // return thing;
     }
 
     for (ptr = first->next; ptr->next != NULL; ptr = ptr->next)
@@ -199,8 +231,10 @@ void *DLList::SortedRemove(int sortKey)
             ptr->next->prev = ptr->prev;
             ptr->prev->next = ptr->next;
             thing = ptr->item;
-            delete ptr;
-            return thing;
+
+            break;
+            // delete ptr;
+            // return thing;
         }
     }
 
@@ -210,9 +244,12 @@ void *DLList::SortedRemove(int sortKey)
         thing = ptr->item;
         last = ptr->prev;
         ptr->prev->next = NULL;
-        delete ptr;
-        return thing;
+        // delete ptr;
+        // return thing;
     }
 
-    return NULL;
+    ASSERT(thing != NULL);
+    delete ptr;
+    lock->Release();
+    return thing;
 }

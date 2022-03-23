@@ -2,14 +2,10 @@
 #ifndef dllist_driver_cc
 #define dllist_driver_cc
 
-#include "copyright.h"
 #include "system.h"
-#include "utility.h"
 #include "dllist.h"
-#include "system.h"
 
-
-extern int error_type;
+// extern int error_type;
 
 void GenerateN(DLList *dllist, int N)
 {

@@ -13,6 +13,7 @@
 #include "system.h"
 #include "dllist.h"
 #include "string"
+
 using namespace std ;
 //#include "dllist-driver.cc"
 
@@ -22,6 +23,8 @@ int N = 5;//-nn 增加链表节点数
 int threadnum = 2;//-tt 线程数
 int error_type = 0;//-ff bug类型
 DLList *dllist;
+
+Lock *lock = new Lock("lock for bug 1"); // lock for bug 1
 
 //----------------------------------------------------------------------
 // SimpleThread
@@ -74,6 +77,8 @@ ThreadTest1()
 
 void
 GenerateAndRemove(int which){
+    lock->Acquire();
+    
     GenerateN(dllist,N);
     // Bug 1
     if(error_type==1)
@@ -86,6 +91,8 @@ GenerateAndRemove(int which){
         currentThread->Yield();
     }
     RemoveN(dllist,N);
+
+    lock->Release();
 }
 void 
 ThreadTest2()
