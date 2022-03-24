@@ -120,7 +120,7 @@ void Lock::Acquire()
     ASSERT(!isHeldByCurrentThread());
     IntStatus oldLevel = interrupt->SetLevel(IntOff);
 
-    if (flag == BUSY)
+    while (flag == BUSY)
     {
         queue->Append((void *)currentThread);
         currentThread->Sleep();
@@ -176,8 +176,8 @@ void Condition::Wait(Lock *conditionLock)
 
     IntStatus oldLevel = interrupt->SetLevel(IntOff);
 
-    conditionLock->Release();
     queue->Append((void *)currentThread);
+    conditionLock->Release();
     currentThread->Sleep();
 
     conditionLock->Acquire();

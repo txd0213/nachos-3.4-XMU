@@ -14,8 +14,8 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // synch.h -- synchronization primitives.  
 
-#ifndef SLEEP
-#define SLEEP
+#ifndef SYNCH_SLEEP_H
+#define SYNCH_SLEEP_H
 
 #include "copyright.h"
 #include "thread.h"

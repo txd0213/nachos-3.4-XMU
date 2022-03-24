@@ -14,8 +14,8 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // synch.h -- synchronization primitives.  
 
-#ifndef SEM
-#define SEM
+#ifndef SYNCH_SEM_H
+#define SYNCH_SEM_H
 
 #include "copyright.h"
 #include "thread.h"

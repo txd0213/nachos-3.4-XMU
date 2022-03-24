@@ -115,6 +115,8 @@ Lock::~Lock()
 }
 void Lock::Acquire()
 {
+    ASSERT(!isHeldByCurrentThread());
+    
     sem->P();
     threadGetLock = currentThread;
 }
@@ -140,6 +142,7 @@ Condition::Condition(char* debugName)
 {
     name = debugName;
     sem = new Semaphore("sem for condition", 0);
+    threadWait = 0;
 }
 Condition::~Condition()
 {
