@@ -37,6 +37,8 @@
 // and some other thread might have called P or V, so the true value might
 // now be different.
 
+namespace sync{
+
 enum LockStatus{FREE,BUSY};
 
 class Semaphore {
@@ -140,4 +142,6 @@ class Condition {
     List *queue;
     // plus some other stuff you'll need to define
 };
+
+}
 #endif // SYNCH_H

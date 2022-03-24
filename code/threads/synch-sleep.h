@@ -14,8 +14,8 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // synch.h -- synchronization primitives.  
 
-#ifndef SYNCH_SLEEP_H
-#define SYNCH_SLEEP_H
+#ifndef SLEEP
+#define SLEEP
 
 #include "copyright.h"
 #include "thread.h"
@@ -35,6 +35,8 @@
 // into a register, a context switch might have occurred,
 // and some other thread might have called P or V, so the true value might
 // now be different.
+
+namespace synch_sleep{
 
 class Semaphore {
   public:
@@ -137,4 +139,6 @@ class Condition {
     // plus some other stuff you'll need to define
     List *queue;
 };
+
+}
 #endif // SYNCH_SLEEP_H

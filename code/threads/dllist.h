@@ -4,7 +4,22 @@
 
 #include "copyright.h"
 #include "utility.h"
+
+// #ifdef SEM
+// #include "synch-sem.h"
+// #else
+// #ifdef SLEEP
+// #include "synch-sleep.h"
+// #else
+// #include "synch.h"
+// #endif
+// #endif
+
 #include "synch-sem.h"
+#include "synch-sleep.h"
+#include "synch.h"
+
+using namespace synch_sleep;
 
 class DLLElement
 {

@@ -33,7 +33,7 @@
 //	"initialValue" is the initial value of the semaphore.
 //----------------------------------------------------------------------
 
-Semaphore::Semaphore(char* debugName, int initialValue)
+synch_sleep::Semaphore::Semaphore(char* debugName, int initialValue)
 {
     name = debugName;
     value = initialValue;
@@ -46,7 +46,7 @@ Semaphore::Semaphore(char* debugName, int initialValue)
 //	is still waiting on the semaphore!
 //----------------------------------------------------------------------
 
-Semaphore::~Semaphore()
+synch_sleep::Semaphore::~Semaphore()
 {
     delete queue;
 }
@@ -62,7 +62,7 @@ Semaphore::~Semaphore()
 //----------------------------------------------------------------------
 
 void
-Semaphore::P()
+synch_sleep::Semaphore::P()
 {
     IntStatus oldLevel = interrupt->SetLevel(IntOff);	// disable interrupts
     
@@ -85,7 +85,7 @@ Semaphore::P()
 //----------------------------------------------------------------------
 
 void
-Semaphore::V()
+synch_sleep::Semaphore::V()
 {
     Thread *thread;
     IntStatus oldLevel = interrupt->SetLevel(IntOff);
@@ -100,19 +100,20 @@ Semaphore::V()
 // Dummy functions -- so we can compile our later assignments 
 // Note -- without a correct implementation of Condition::Wait(), 
 // the test case in the network assignment won't work!
-Lock::Lock(char* debugName) 
+synch_sleep::Lock::Lock(char* debugName) 
 {
     name = debugName;
     threadGetLock = new Thread("thread get lock");
     lockValue = 0;
     queue = new List;
 }
-Lock::~Lock() 
+
+synch_sleep::Lock::~Lock() 
 {
     delete threadGetLock;
     delete queue;
 }
-void Lock::Acquire()
+void synch_sleep::Lock::Acquire()
 {
     IntStatus oldLevel = interrupt->SetLevel(IntOff);
     while(lockValue == 1){//if locked
@@ -127,7 +128,7 @@ void Lock::Acquire()
     (void) interrupt->SetLevel(oldLevel);
 }
 
-void Lock::Release()
+void synch_sleep::Lock::Release()
 {
     ASSERT(isHeldByCurrentThread());
 
@@ -144,7 +145,7 @@ void Lock::Release()
     (void) interrupt->SetLevel(oldLevel);
 }
 
-bool Lock::isHeldByCurrentThread()
+bool synch_sleep::Lock::isHeldByCurrentThread()
 {
     if(currentThread == threadGetLock && lockValue == 1){
         return true;
@@ -153,12 +154,12 @@ bool Lock::isHeldByCurrentThread()
     }
 }
 
-Condition::Condition(char* debugName)
+synch_sleep::Condition::Condition(char* debugName)
 {
     name = debugName;
     queue = new List;
 }
-Condition::~Condition()
+synch_sleep::Condition::~Condition()
 {
     delete queue;
 }
@@ -167,7 +168,7 @@ Condition::~Condition()
 //// first: lock->Acquire
 //// ......
 //// then: wait()
-void Condition::Wait(Lock* conditionLock)
+void synch_sleep::Condition::Wait(Lock* conditionLock)
 {
     // when a thread use wait_cv, it already get lock
     // the lock means you can watch cv and judge by cv
@@ -192,7 +193,7 @@ void Condition::Wait(Lock* conditionLock)
 //// first: lock->Acquire
 //// ......
 //// then: signal()
-void Condition::Signal(Lock* conditionLock)
+void synch_sleep::Condition::Signal(Lock* conditionLock)
 {
     ASSERT(conditionLock->isHeldByCurrentThread());
 
@@ -211,7 +212,7 @@ void Condition::Signal(Lock* conditionLock)
 //// first: lock->Acquire
 //// ......
 //// then: broadcast()
-void Condition::Broadcast(Lock* conditionLock)
+void synch_sleep::Condition::Broadcast(Lock* conditionLock)
 {
     ASSERT(conditionLock->isHeldByCurrentThread());
 

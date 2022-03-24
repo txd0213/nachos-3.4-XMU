@@ -14,8 +14,8 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // synch.h -- synchronization primitives.  
 
-#ifndef SYNCH_SEM_H
-#define SYNCH_SEM_H
+#ifndef SEM
+#define SEM
 
 #include "copyright.h"
 #include "thread.h"
@@ -35,6 +35,8 @@
 // into a register, a context switch might have occurred,
 // and some other thread might have called P or V, so the true value might
 // now be different.
+
+namespace sync_sem{
 
 class Semaphore {
   public:
@@ -137,4 +139,6 @@ class Condition {
     Semaphore *sem;
     int threadWait;
 };
+
+}
 #endif // SYNCH_SEM_H

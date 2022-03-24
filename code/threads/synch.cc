@@ -32,7 +32,8 @@
 //	"debugName" is an arbitrary name, useful for debugging.
 //	"initialValue" is the initial value of the semaphore.
 //----------------------------------------------------------------------
-
+namespace sync{
+    
 Semaphore::Semaphore(char *debugName, int initialValue)
 {
     name = debugName;
@@ -205,4 +206,6 @@ void Condition::Broadcast(Lock *conditionLock)
         scheduler->ReadyToRun(thread);
 
     (void)interrupt->SetLevel(oldLevel);
+}
+
 }

@@ -103,9 +103,11 @@ ThreadTest2()
     dllist=new DLList();
     for(int i = 1; i < threadnum; i++){
         printf("thread: %d start-up\n",i);
+        char *forked_name=new char[5];
 	    char fork_name[5]="1   ";
 	    fork_name[0]=i+'0';
-        Thread *t = new Thread(fork_name);
+        strcpy(forked_name,fork_name);
+        Thread *t = new Thread(forked_name);
         t->Fork(GenerateAndRemove,i);
     }
     GenerateAndRemove(0);

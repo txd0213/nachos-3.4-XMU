@@ -42,6 +42,8 @@ THREAD_H =../threads/copyright.h\
 	../threads/scheduler.h\
 	../threads/synch.h \
 	../threads/synchlist.h\
+	../threads/synch-sleep.h\
+	../threads/synch-sem.h\
 	../threads/system.h\
 	../threads/thread.h\
 	../threads/utility.h\
@@ -58,6 +60,8 @@ THREAD_C =../threads/main.cc\
 	../threads/scheduler.cc\
 	../threads/synch.cc \
 	../threads/synchlist.cc\
+	../threads/synch-sleep.cc\
+	../threads/synch-sem.cc\
 	../threads/system.cc\
 	../threads/thread.cc\
 	../threads/utility.cc\
@@ -71,7 +75,7 @@ THREAD_C =../threads/main.cc\
 
 THREAD_S = ../threads/switch.s
 
-THREAD_O =main.o list.o scheduler.o synch.o synchlist.o system.o thread.o \
+THREAD_O =main.o list.o scheduler.o synch.o synch-sem.o synch-sleep.o synchlist.o system.o thread.o \
 	utility.o threadtest.o interrupt.o stats.o sysdep.o timer.o dllist.o dllist-driver.o
 
 USERPROG_H = ../userprog/addrspace.h\
@@ -143,3 +147,4 @@ depend: $(CFILES) $(HFILES)
 	echo '# DEPENDENCIES MUST END AT END OF FILE' >> Makefile
 	echo '# IF YOU PUT STUFF HERE IT WILL GO AWAY' >> Makefile
 	echo '# see make depend above' >> Makefile
+

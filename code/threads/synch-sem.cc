@@ -33,6 +33,8 @@
 //	"initialValue" is the initial value of the semaphore.
 //----------------------------------------------------------------------
 
+namespace sync_sem{
+
 Semaphore::Semaphore(char* debugName, int initialValue)
 {
     name = debugName;
@@ -192,4 +194,6 @@ void Condition::Broadcast(Lock* conditionLock)
         sem->V();
         threadWait--;
     } 
+}
+
 }

@@ -13,7 +13,12 @@
 
 #include "copyright.h"
 #include "list.h"
+
+#include "synch-sem.h"
+#include "synch-sleep.h"
 #include "synch.h"
+
+using namespace synch_sleep;
 
 // The following class defines a "synchronized list" -- a list for which:
 // these constraints hold:
