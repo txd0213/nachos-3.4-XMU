@@ -69,6 +69,7 @@ THREAD_C =../threads/main.cc\
 	../threads/dllist.cc\
 	../threads/dllist-driver.cc\
 	../threads/Table.cc\
+	../threads/BoundedBuffer.cc\
 	../machine/interrupt.cc\
 	../machine/sysdep.cc\
 	../machine/stats.cc\
@@ -77,7 +78,7 @@ THREAD_C =../threads/main.cc\
 THREAD_S = ../threads/switch.s
 
 THREAD_O =main.o list.o scheduler.o synch.o synch-sem.o synch-sleep.o synchlist.o system.o thread.o \
-	utility.o threadtest.o interrupt.o stats.o sysdep.o timer.o dllist.o dllist-driver.o Table.o
+	utility.o threadtest.o interrupt.o stats.o sysdep.o timer.o dllist.o dllist-driver.o Table.o BoundedBuffer.o
 
 USERPROG_H = ../userprog/addrspace.h\
 	../userprog/bitmap.h\

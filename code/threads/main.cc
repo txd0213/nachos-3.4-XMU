@@ -121,7 +121,7 @@ main(int argc, char **argv)
 			case 'S':
 				break;
       		default:
-			  	printf("Please check the input parameters! In main.cc line:118\n");
+			  	printf("Please check the input parameters! In main.cc \n");
         		break;
 		}
 	}
