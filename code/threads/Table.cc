@@ -3,6 +3,8 @@
 
 using namespace synch_sleep;
 
+extern Thread* currentThread;
+
 Table::Table(int size)
 {
     this->maxTableSize = size;
@@ -31,6 +33,7 @@ int Table::Alloc(void *object)
     else
         table[now] = object;
 
+    DEBUG('T',"%d:%s was inserted into table by %s\n",now,(char*)object,currentThread->getName());
     tableLock->Release();
     
     return now;
@@ -41,7 +44,10 @@ void *Table::Get(int index)
     ASSERT(index >= 0 && index < maxTableSize);
 
     tableLock->Acquire();
+
     void *p = index >= maxTableSize ? NULL : table[index];
+    DEBUG('T',"%d:%s was got by %s\n",index, (char*)p,currentThread->getName());
+
     tableLock->Release();
 
     return p;
@@ -52,6 +58,11 @@ void Table::Release(int index)
     ASSERT(index >= 0 && index < maxTableSize);
 
     tableLock->Acquire();
+
+    void* p=table[index];
     table[index] = NULL;
+
+    DEBUG('T',"%d:%s was released by %s\n",index,(char*)p,currentThread->getName());
+
     tableLock->Release();
 }

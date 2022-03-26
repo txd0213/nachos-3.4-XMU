@@ -13,6 +13,8 @@
 #include "system.h"
 #include "dllist.h"
 #include "BoundedBuffer.h"
+#include "Table.h"
+
 #include "synch-sem.h"
 #include "synch-sleep.h"
 #include "synch.h"
@@ -25,8 +27,10 @@ int testnum = 1;    //-qq 程序模式,1为原程序，2为自制程序
 int N = 5;          //-nn 增加链表节点数
 int threadnum = 2;  //-tt 线程数
 int error_type = 0; //-ff bug类型
+
 DLList *dllist;
 BoundedBuffer *Buf;
+Table* tab;
 
 synch_sleep::Lock *lock = new synch_sleep::Lock("lock for bug 1"); // lock for bug 1
 
@@ -159,9 +163,33 @@ void ThreadTest3()
     read_OR_write(0);
 }
 
+void tableOP(int i)
+{
+    while (1)
+    {
+        char* temp=currentThread->getName();
+        int index=tab->Alloc((void*)temp);
+        if(Random()%2) currentThread->Yield();
+        tab->Get(index);
+        if(Random()%2) currentThread->Yield();
+        tab->Release(index);
+    }  
+}
+
 void ThreadTest4()
 {
-
+    DEBUG('T', "Entering ThreadTest4\n");
+    tab=new Table(20);
+    for (int i = 1; i < threadnum; i++)
+    {
+        char *forked_name = new char[5];
+        char fork_name[5] = "1   ";
+        fork_name[0] = i + '0';
+        strcpy(forked_name, fork_name);
+        Thread *t = new Thread(forked_name);
+        t->Fork(tableOP, i);
+    }
+    tableOP(0);
 }
 
 void ThreadTest()
