@@ -1,6 +1,8 @@
 #include "copyright.h"
 #include "Table.h"
 
+using namespace synch_sleep;
+
 Table::Table(int size)
 {
     this->maxTableSize = size;

@@ -22,6 +22,8 @@
 //	Elements can now be added to the list.
 //----------------------------------------------------------------------
 
+using namespace synch_sleep;
+
 SynchList::SynchList()
 {
     list = new List();

@@ -18,7 +18,6 @@
 #include "synch-sleep.h"
 #include "synch.h"
 
-using namespace synch_sleep;
 
 // The following class defines a "synchronized list" -- a list for which:
 // these constraints hold:
@@ -40,8 +39,8 @@ class SynchList {
 
   private:
     List *list;			// the unsynchronized list
-    Lock *lock;			// enforce mutual exclusive access to the list
-    Condition *listEmpty;	// wait in Remove if the list is empty
+    synch_sleep::Lock *lock;			// enforce mutual exclusive access to the list
+    synch_sleep::Condition *listEmpty;	// wait in Remove if the list is empty
 };
 
 #endif // SYNCHLIST_H

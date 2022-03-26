@@ -5,21 +5,9 @@
 #include "copyright.h"
 #include "utility.h"
 
-// #ifdef SEM
-// #include "synch-sem.h"
-// #else
-// #ifdef SLEEP
-// #include "synch-sleep.h"
-// #else
-// #include "synch.h"
-// #endif
-// #endif
-
 #include "synch-sem.h"
 #include "synch-sleep.h"
 #include "synch.h"
-
-using namespace synch_sleep;
 
 class DLLElement
 {
@@ -58,8 +46,8 @@ private:
     DLLElement *first; // head of the list, NULL if empty
     DLLElement *last;  // last element of the list, NULL if empty
 
-    Lock *lock;
-    Condition *dllistEmpty;
+    synch_sleep::Lock *lock;
+    synch_sleep::Condition *dllistEmpty;
 };
 
 #endif

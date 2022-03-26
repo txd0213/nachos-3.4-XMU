@@ -33,8 +33,6 @@ files, etc.
 #include "synch-sleep.h"
 #include "synch.h"
 
-using namespace synch_sleep;
-
 
 class Table {
    public:
@@ -56,7 +54,7 @@ class Table {
    private:
      void** table;
      int maxTableSize;
-     Lock* tableLock;
+     synch_sleep::Lock* tableLock;
 };
 
 #endif

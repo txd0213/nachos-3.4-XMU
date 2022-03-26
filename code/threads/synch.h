@@ -37,7 +37,7 @@
 // and some other thread might have called P or V, so the true value might
 // now be different.
 
-namespace sync{
+namespace synch{
 
 enum LockStatus{FREE,BUSY};
 

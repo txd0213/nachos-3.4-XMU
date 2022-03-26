@@ -33,7 +33,7 @@
 //	"initialValue" is the initial value of the semaphore.
 //----------------------------------------------------------------------
 
-namespace sync_sem{
+namespace synch_sem{
 
 Semaphore::Semaphore(char* debugName, int initialValue)
 {

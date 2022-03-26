@@ -6,7 +6,6 @@
 #include "synch-sleep.h"
 #include "synch.h"
 
-using namespace synch_sleep;
 
 class BoundedBuffer {
    public:
@@ -17,13 +16,16 @@ class BoundedBuffer {
      // read 'size' bytes from the bounded buffer, storing into 'data'.
      // ('size' may be greater than 'maxsize')
      void Read(void *data, int size);
+     void _read(void *data, int size);  
      
      // write 'size' bytes from 'data' into the bounded buffer.
      // ('size' may be greater than 'maxsize')
      void Write(void *data, int size);
+     void _write(void *data, int size);
+
    private:
-     Condition *notFull,*notEmpty;
-     Lock* bufferLock;
+     synch_sleep::Condition *notFull,*notEmpty;
+     synch_sleep::Lock* bufferLock;
 
      char* buffer;
      int count,nextin,nextout;

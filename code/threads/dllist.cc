@@ -3,13 +3,15 @@
 #include "dllist.h"
 #include "system.h"
 
+using namespace synch_sleep;
+
 extern int error_type;
 
 DLList::DLList()
 {
     first = last = NULL;
-    lock = new Lock("dllist lock");
-    dllistEmpty = new Condition("dllist empty condition");
+    lock = new synch_sleep::Lock("dllist lock");
+    dllistEmpty = new synch_sleep::Condition("dllist empty condition");
 }
 
 DLList::~DLList()

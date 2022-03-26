@@ -36,7 +36,7 @@
 // and some other thread might have called P or V, so the true value might
 // now be different.
 
-namespace sync_sem{
+namespace synch_sem{
 
 class Semaphore {
   public:

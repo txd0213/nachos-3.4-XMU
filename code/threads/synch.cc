@@ -32,7 +32,7 @@
 //	"debugName" is an arbitrary name, useful for debugging.
 //	"initialValue" is the initial value of the semaphore.
 //----------------------------------------------------------------------
-namespace sync{
+namespace synch{
     
 Semaphore::Semaphore(char *debugName, int initialValue)
 {

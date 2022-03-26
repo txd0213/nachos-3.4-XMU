@@ -13,8 +13,11 @@
 #include "system.h"
 #include "dllist.h"
 #include "BoundedBuffer.h"
+#include "synch-sem.h"
+#include "synch-sleep.h"
+#include "synch.h"
 
-using namespace std;
+
 //#include "dllist-driver.cc"
 
 // testnum is set in main.cc
@@ -25,7 +28,7 @@ int error_type = 0; //-ff bug类型
 DLList *dllist;
 BoundedBuffer *Buf;
 
-Lock *lock = new Lock("lock for bug 1"); // lock for bug 1
+synch_sleep::Lock *lock = new synch_sleep::Lock("lock for bug 1"); // lock for bug 1
 
 //----------------------------------------------------------------------
 // SimpleThread
@@ -123,7 +126,7 @@ void read_OR_write(int i)
 {
     while (1)
     {
-        if (i % 2)  //50% consumer
+        if (i % 2)  //50% producer
         {
             if (Random() % 2)
                 currentThread->Yield();  //random to yield
@@ -156,6 +159,11 @@ void ThreadTest3()
     read_OR_write(0);
 }
 
+void ThreadTest4()
+{
+
+}
+
 void ThreadTest()
 {
     switch (testnum)
@@ -168,6 +176,9 @@ void ThreadTest()
         break;
     case 3:
         ThreadTest3();
+        break;
+    case 4:
+        ThreadTest4();
         break;
     default:
         printf("No test specified.\n");
