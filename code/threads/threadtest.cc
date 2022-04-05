@@ -81,7 +81,7 @@ GenerateAndRemove(int which){
         
         printf("---[bug 1]--- Thread: ");
         currentThread->Print();
-        printf("    Yield after insert N node. (dllist.cc line76)\n\n");
+        printf("    Yield after insert N node. (threadtest.cc line84)\n\n");
         fflush(stdout);
         currentThread->Yield();
     }
