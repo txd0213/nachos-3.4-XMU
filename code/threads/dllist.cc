@@ -255,3 +255,39 @@ void *DLList::SortedRemove(int sortKey)
     lock->Release();
     return thing;
 }
+
+void DLList::Show1()
+{
+    DLLElement *ptr;
+    if(IsEmpty())
+    {
+        printf("show1 list is empty!\n");
+    }
+    else
+    {
+        printf("show1 list (first->last): ");
+        for(ptr=first;ptr!=NULL;ptr=ptr->next)
+        {
+            printf("%d  ",ptr->key);
+        }
+        printf("\n\n");
+    }
+}
+
+void DLList::Show2()
+{
+    DLLElement *ptr;
+    if(IsEmpty())
+    {
+        printf("show2 list is empty!\n");
+    }
+    else
+    {
+        printf("show2 list (last->first): ");
+        for(ptr=last;ptr!=NULL;ptr=ptr->prev)
+        {
+            printf("%d  ",ptr->key);
+        }
+        printf("\n\n");
+    }
+}
