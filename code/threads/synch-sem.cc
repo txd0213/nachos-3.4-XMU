@@ -106,7 +106,7 @@ Lock::Lock(char* debugName)
 {
     name = debugName;
     threadGetLock = new Thread("thread get lock");
-    sem = new Semaphore("sem for lock", 1);
+    sem = new Semaphore("sem for lock", 1); // 1 means only one thread can acquire
 }
 Lock::~Lock() 
 {
@@ -115,25 +115,25 @@ Lock::~Lock()
 }
 void Lock::Acquire()
 {
-    ASSERT(!isHeldByCurrentThread());
+    ASSERT(!isHeldByCurrentThread());   // the thread can't acquire the lock it has get
     
-    sem->P();
-    threadGetLock = currentThread;
+    sem->P();                           // first get lock
+    threadGetLock = currentThread;      // then change the threadGetLock
 }
 
 void Lock::Release()
 {
-    ASSERT(isHeldByCurrentThread());
+    ASSERT(isHeldByCurrentThread());    // the thread who has the lock can release
 
-    sem->V();
-    threadGetLock = NULL;
+    threadGetLock = NULL;               // restore the lock, no thread get it
+    sem->V();                           // release the lock
 }
 
 bool Lock::isHeldByCurrentThread()
 {
-    if(currentThread == threadGetLock){
+    if (currentThread == threadGetLock) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
@@ -141,7 +141,7 @@ bool Lock::isHeldByCurrentThread()
 Condition::Condition(char* debugName)
 {
     name = debugName;
-    sem = new Semaphore("sem for condition", 0);
+    sem = new Semaphore("sem for condition", 0); // 0 means the thread which use cv will be blocked
     threadWait = 0;
 }
 Condition::~Condition()
@@ -179,9 +179,9 @@ void Condition::Signal(Lock* conditionLock)
 {
     ASSERT(conditionLock->isHeldByCurrentThread());
 
-    if(threadWait != 0){
-        sem->V();
+    if (threadWait != 0) { // threadWait is the number of thread waiting on cv
         threadWait--;
+        sem->V();
     }
 }
 
@@ -193,9 +193,9 @@ void Condition::Broadcast(Lock* conditionLock)
 {
     ASSERT(conditionLock->isHeldByCurrentThread());
 
-    while(threadWait != 0){
-        sem->V();
+    while (threadWait != 0) { //threadWait really useful here, which means how much times for V()
         threadWait--;
+        sem->V();
     } 
 }
 
